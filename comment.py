@@ -35,3 +35,4 @@ class Comment:
   def send_comment(self):
       self.message.append(input("Pls enter your comment: "))
 
+
