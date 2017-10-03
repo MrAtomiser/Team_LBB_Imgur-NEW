@@ -9,7 +9,7 @@ from image_gallery import ImageGallery
 
 class User():
 
-                def __init__(self, username, password, profile_image, email, date_created=None, my_images = []):
+  def __init__(self, username, password, profile_image, email, date_created=None, my_images = []):
                     self.username = username
                     self.__password = hashlib.md5('password'.encode('utf-8')).hexdigest()
                     self.email = email
@@ -81,8 +81,43 @@ class User():
                 def get_password(self):
                     return self.__password
 
+  def create_image(self):
+    title = input("What's the image title? ")
+    description = input("what the description? ")
+    tags = input("What are the tags? ")
+    image_gallery_id = input("What gallery? ")
+    score = input("Score it: ")
+    new_image = Image(title,description,tags,image_gallery_id,score)
+    self.my_images.append(new_image)
 
-if __name__ == "__main__":
+  def read_images(self):
+    for image in self.my_images:
+      print(image.title)
+
+  def delete_image(self,image):
+    if image in self.my_images:
+      self.my_images.remove(image)
+      print("{} successfully delete".format(image.title))
+    else:
+      print("image does not exist to begin with")
+
+  def update_image_title(self,image,new_title):
+    if image in self.my_images:
+      image.title = new_title
+      print("New title is: {}".format(image.title))
+
+  def update_image_description(self,image,new_description):
+    if image in self.my_images:
+      image.description = new_description
+      print("New description is: {}".format(image.description))
+
+  def image_search(self, title):
+    for image in self.my_images:
+      if title in image.title:
+        print(image)
+
+
+
 
                 # User creation and Sending successful email after account creation
                 sadiq = User(username = "sadiq", password = hashlib.md5("password".encode('utf-8')).hexdigest(), email='sokocha@gmail.com', profile_image="sadiqimage",my_images = [])
@@ -121,5 +156,19 @@ if __name__ == "__main__":
                 cat_image.up_vote(charles)
                 cat_image.up_vote(abdul)
                 cat_image.score_image()
+
+
+cat_image = Image("cat","this is a cat","cat, internet, other","other gallery")
+dog_image = Image("dog","this is a cat","cat, internet, other","other gallery")
+rat_image = Image("rat","this is a cat","cat, internet, other","other gallery")
+fish_image = Image("fish","this is a cat","cat, internet, other","other gallery")
+
+
+cat_image_comment = Comment("abcde", cat_image, "i love things", "4")
+dog_image_comment = Comment("abcde", dog_image, "i love things", "4")
+rat_image_comment = Comment("abcde", rat_image, "i love things", "4")
+fish_image_comment = Comment("abcde", fish_image, "i love things", "4")
+
+
 
 
