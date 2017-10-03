@@ -26,9 +26,11 @@ class Comment:
   def vote_comment(self):
     pass
 
+
   def delete_comment(self,r_comment):
     if r_comment in self.comments:
           self.comments.remove(r_comment)
+
 
   def send_comment(self):
       self.message.append(input("Pls enter your comment: "))
