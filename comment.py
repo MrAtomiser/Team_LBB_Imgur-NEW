@@ -23,10 +23,8 @@ class Comment:
             updated_comment = old_comment
         print("New reply is: {}".format(updated_comment))
 
-
   def vote_comment(self):
     pass
-
 
   def delete_comment(self,r_comment):
     if r_comment in self.comments:
@@ -34,5 +32,4 @@ class Comment:
 
   def send_comment(self):
       self.message.append(input("Pls enter your comment: "))
-
 
