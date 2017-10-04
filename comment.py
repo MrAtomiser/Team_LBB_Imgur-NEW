@@ -9,15 +9,13 @@
 import time
 
 class Comment:
-  def __init__(self, message, sender_ID, points, post_ID,replies=[], comments=[]):  # CommentID Needed?
+  def __init__(self, message, user, points, post_ID,replies = [], up_vote_list = [], down_vote_list = []):  # CommentID Needed?
     self.message = message
     self.timesent = time()
-    self.sender_ID = sender_ID
+    self.user = user
     self.points = points
-    self.post_ID = post_ID
     self.replies = replies
-    self.comments = comments
-
+  
   def edit_comment(self, old_comment, updated_comment):
         if old_comment in self.comments:
             updated_comment = old_comment
@@ -27,11 +25,33 @@ class Comment:
     pass
 
 
-  def delete_comment(self,r_comment):
-    if r_comment in self.comments:
-          self.comments.remove(r_comment)
+  def delete_reply(self,reply):
+    if reply in self.replies:
+          self.replies.remove(reply)
 
 
-  def send_comment(self):
-      self.message.append(input("Pls enter your comment: "))
+  def create_reply(self):
+      new_reply = Reply(input("Please enter comment: "))
+      self.replies.append(new_reply)
+
+  def up_vote_comment(self, user):
+      if user in self.up_vote_list:
+          print('You cannot up vote twice')
+
+      elif user not in self.up_vote_list or user not in self.down_vote_list:
+          self.up_vote_list.append(user)
+
+      elif user in self.down_vote_list:
+          self.down_vote_list.remove(user)
+
+          self.up_vote_list.append(user)
+
+  def down_vote_comment(self, user):
+      if user in self.down_vote_list:
+          print('You cannot down vote twice')
+      elif user not in self.down_vote_list or user not in self.up_vote_list:
+          self.down_vote_list.append(user)
+      elif user in self.up_vote_list:
+          self.down_vote_list.remove(user)
+          self.up_vote_list.append(user)
 
